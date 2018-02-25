@@ -13,7 +13,7 @@ services:
     - "80"
 
     environment:
-    - VIRTUAL_HOST=159.89.94.169
+    - VIRTUAL_HOST=redroomseo.com
     - ConnectionStrings_default=redis
 
     restart: always
