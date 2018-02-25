@@ -24,18 +24,18 @@ namespace Template
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .AddEnvironmentVariables();
+            //var builder = new ConfigurationBuilder()
+            //    .SetBasePath(Directory.GetCurrentDirectory())
+            //    .AddJsonFile("appsettings.json")
+            //    .AddEnvironmentVariables();
 
-            var config = builder.Build();
+            //var config = builder.Build();
 
-            var connstr = config.GetConnectionString("redis");
+            //var connstr = config.GetConnectionString("redis");
 
             services.AddDistributedRedisCache(options =>
             {
-                options.Configuration = connstr;
+                options.Configuration = "test";
                 options.InstanceName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
             });
             
