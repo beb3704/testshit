@@ -43,11 +43,11 @@ namespace Template.TagHelpers
                         Text = child
                     });
                     await _context.SaveChangesAsync();
-                    await _cache.SetStringAsync(Edit, child);
+                    //await _cache.SetStringAsync(Edit, child);
                 }
                 else
                 {
-                    await _cache.SetStringAsync(Edit, isInDatabase.Text);
+                    //await _cache.SetStringAsync(Edit, isInDatabase.Text);
                     output.Content.SetHtmlContent(isInDatabase.Text);
                 }
             //}
