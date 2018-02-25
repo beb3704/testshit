@@ -1,0 +1,57 @@
+﻿@page
+@using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging
+@model Template.Pages.Admin.EditsectionsModel
+@{
+    ViewData["Title"] = "editsections";
+}
+<script src="~/lib/Vue/vue.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+@{
+    foreach (var editField in Model.EditFields)
+    {
+        <div class="@editField.UniqeKey">
+            <h1>Edit Field : @editField.UniqeKey</h1>
+            <textarea v-model="message" placeholder="message"></textarea>
+            <p>{{ message }}</p>
+            <button v-on:click="update">Save</button>
+            @Html.AntiForgeryToken()
+
+
+        </div>
+
+        <script>
+
+
+            new Vue({
+                el: '.@editField.UniqeKey',
+                data: {
+                    message: '@editField.Text',
+                    id: '@editField.Id'
+                },
+                methods: {
+                    update: function() {
+                        console.log(this.message);
+
+                        axios.interceptors.request.use((config) => {
+                            config.headers["XSRF-TOKEN"] = $('input:hidden[name="__RequestVerificationToken"]').val();
+                            return config;
+                        });
+
+                        axios.post('/Admin/editsections?handler=updatesection',
+                            {
+                                id: this.id,
+                                text: this.message
+                            }).then(function(response) {
+                            console.log(response);
+                        }).catch(function(error) {
+                            console.log(error);
+                        });
+                    }
+                }
+            })
+        </script>
+    }
+}
+
+@*  http://localhost:49933/Admin/editsections?handler=updateeditsection  *@
